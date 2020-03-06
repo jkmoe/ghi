@@ -67,10 +67,10 @@ export default function SimpleTabs() {
                 <PullRequests />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <Issues />
+                <Issues issueState='OPEN' />
             </TabPanel>
             <TabPanel value={value} index={2}>
-                <Issues />
+                <Issues issueState='CLOSED' />
             </TabPanel>
         </div>
     );
