@@ -1,12 +1,13 @@
 import React from 'react';
 import Header from "./Header";
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { Router, Route, Switch, Redirect } from 'react-router-dom';
 import NoSearch from "./NoSearch";
 import Inspect from "./Inspect";
+import history from "../history";
 
 const App = () => {
     return (
-        <BrowserRouter>
+        <Router history={history}>
             <div>
                 <Header/>
                 <Switch>
@@ -15,7 +16,7 @@ const App = () => {
                     <Redirect to="/" />
                 </Switch>
             </div>
-        </BrowserRouter>
+        </Router>
     );
 };
 
