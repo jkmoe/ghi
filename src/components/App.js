@@ -3,7 +3,6 @@ import Header from "./Header";
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import NoSearch from "./NoSearch";
 import Inspect from "./Inspect";
-import Container from "@material-ui/core/Container";
 
 const App = () => {
     return (

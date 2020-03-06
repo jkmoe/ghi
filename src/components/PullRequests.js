@@ -1,31 +1,52 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
+import ListItemLink from "./ListItemLink";
 import ListItemText from '@material-ui/core/ListItemText';
+import { useQuery } from 'urql';
 
-const useStyles = makeStyles(theme => ({
-    root: {
-        width: '100%',
-        maxWidth: 360,
-        backgroundColor: theme.palette.background.paper,
-    },
-}));
-
-function ListItemLink(props) {
-    return <ListItem button component="a" {...props} />;
-}
+const getPullRequests = `
+        query {
+          repository(owner:"nuwave", name:"lighthouse") {
+            pullRequests(last:10) {
+              edges {
+                node {
+                  id,
+                  author {
+                    login
+                  },
+                  title,
+                  changedFiles,
+                  createdAt,
+                  updatedAt,
+                  closed,
+                  closedAt,
+                  url
+                }
+              }
+            }
+          }
+        }
+    `; // TODO: Make the repository params dynamical based on user input
 
 export default function PullRequests() {
-    const classes = useStyles();
+    const [result] = useQuery({
+        query: getPullRequests
+    });
+
+    if (result.fetching) return 'Loading...';
+    if (result.error) return 'Something went wrong. Make sure, you have a valid bearer token.';
+
+    const pullRequestEdges = result.data.repository.pullRequests.edges;
 
     return (
-        <div className={classes.root}>
+        <div>
             <List component="nav" aria-label="secondary mailbox folders">
-                <ListItemLink href="#simple-list">
-                    <ListItemText primary="Spam" />
-                </ListItemLink>
+                    {pullRequestEdges.map(({ node }) => (
+                        <ListItemLink key={node.id} href={ node.url }>
+                            <ListItemText primary={ node.title }/>
+                        </ListItemLink>
+                    ))}
             </List>
         </div>
     );
-}
+};
