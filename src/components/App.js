@@ -2,8 +2,9 @@ import React from 'react';
 import Header from "./Header";
 import { Router, Route, Switch, Redirect } from 'react-router-dom';
 import NoSearch from "./NoSearch";
-import Inspect from "./Inspect";
+import Repository from "./Repository";
 import history from "../history";
+import Issue from "./Issue";
 
 const App = () => {
     return (
@@ -12,7 +13,8 @@ const App = () => {
                 <Header/>
                 <Switch>
                     <Route path="/" exact component={NoSearch}/>
-                    <Route path="/inspect/:repository" exact component={Inspect}/>
+                    <Route path="/repository/:repository" exact component={Repository}/>
+                    <Route path="/issue/:id" exact component={Issue}/>
                     <Redirect to="/" />
                 </Switch>
             </div>

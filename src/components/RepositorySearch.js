@@ -64,7 +64,7 @@ class RepositorySearch extends React.Component {
 
     onRepositorySearch = () => {
         if (this.isValidRepositoryName()) {
-            this.props.history.push('/inspect/' + this.encodeRepositoryName())
+            this.props.history.push('/repository/' + this.encodeRepositoryName())
         } else {
             // TODO: Inform the user
         }

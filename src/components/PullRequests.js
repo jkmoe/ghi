@@ -44,7 +44,7 @@ export default function PullRequests(props) {
         <div>
             <List component="nav" aria-label="secondary mailbox folders">
                     {pullRequestEdges.map(({ node }) => (
-                        <ListItemLink key={node.id} href={ node.url }>
+                        <ListItemLink key={node.id} href={ node.url } target="_blank">
                             <ListItemText primary={ node.title }/>
                         </ListItemLink>
                     ))}

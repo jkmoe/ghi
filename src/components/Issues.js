@@ -15,25 +15,7 @@ const getIssues = `
                     login
                   },
                   title,
-                  createdAt,
                   publishedAt,
-                  lastEditedAt,
-                  bodyText,
-                  comments(last:10) {
-                    nodes {
-                      author {
-                        login
-                      },
-                      createdAt,
-                      publishedAt,
-                      lastEditedAt,
-                      id,
-                      url,
-                      bodyText
-                    }
-                  },
-                  closed,
-                  closedAt,
                   url
                 }
               }
@@ -53,13 +35,13 @@ export default function Issues(props) {
     if (result.fetching) return 'Loading...';
     if (result.error) return 'Something went wrong. Make sure, you have a valid bearer token.';
 
-    const IssueEdges = result.data.repository.issues.edges;
+    const IssuesEdges = result.data.repository.issues.edges;
 
     return (
         <div>
             <List component="nav" aria-label="secondary mailbox folders">
-                {IssueEdges.map(({ node }) => (
-                    <ListItemLink key={node.id} href={ node.url }>
+                {IssuesEdges.map(({ node }) => (
+                    <ListItemLink key={node.id} href={ '/issue/' + encodeURIComponent(node.id) }>
                         <ListItemText primary={ node.title } />
                     </ListItemLink>
                 ))}
