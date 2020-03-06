@@ -49,7 +49,9 @@ class RepositorySearch extends React.Component {
     };
 
     encodeRepositoryName = () => {
-        return encodeURIComponent(this.state.repositoryName);
+        let repositoryNameStrippedFromWhiteSpace = this.state.repositoryName.replace(/\s/g,'');
+
+        return encodeURIComponent(repositoryNameStrippedFromWhiteSpace);
     };
 
     isValidRepositoryName = () => {

@@ -5,8 +5,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { useQuery } from 'urql';
 
 const getPullRequests = `
-        query {
-          repository(owner:"nuwave", name:"lighthouse") {
+        query getPullRequests($repositoryOwner: String!, $repositoryName: String!) {
+          repository(owner:$repositoryOwner, name:$repositoryName) {
             pullRequests(last:10) {
               edges {
                 node {
@@ -26,11 +26,13 @@ const getPullRequests = `
             }
           }
         }
-    `; // TODO: Make the repository params dynamical based on user input
+    `;
 
-export default function PullRequests() {
+export default function PullRequests(props) {
+    const { repositoryOwner, repositoryName } = props.selectedRepository;
     const [result] = useQuery({
-        query: getPullRequests
+        query: getPullRequests,
+        variables: {repositoryOwner, repositoryName},
     });
 
     if (result.fetching) return 'Loading...';

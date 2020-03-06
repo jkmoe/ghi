@@ -5,8 +5,8 @@ import ListItemLink from "./ListItemLink";
 import {useQuery} from "urql";
 
 const getIssues = `
-        query GetIssues($issueState: [IssueState!]) {
-          repository(owner:"nuwave", name:"lighthouse") {
+        query GetIssues($issueState: [IssueState!], $repositoryOwner: String!, $repositoryName: String!) {
+          repository(owner:$repositoryOwner, name:$repositoryName) {
             issues(last:10, states:$issueState) {
               edges {
                 node {
@@ -40,12 +40,14 @@ const getIssues = `
             }
           }
         }
-    `; // TODO: Make the repository params dynamical based on user input
+    `;
 
-export default function Issues(issueState) {
+export default function Issues(props) {
+    const { repositoryOwner, repositoryName } = props.selectedRepository;
+    const issueState = props.issueState;
     const [result] = useQuery({
         query: getIssues,
-        variables: issueState,
+        variables: {issueState, repositoryOwner, repositoryName},
     });
 
     if (result.fetching) return 'Loading...';

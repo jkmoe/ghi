@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function SimpleTabs() {
+export default function SimpleTabs(props) {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
 
@@ -64,13 +64,13 @@ export default function SimpleTabs() {
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0}>
-                <PullRequests />
+                <PullRequests selectedRepository={props.selectedRepository} />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <Issues issueState='OPEN' />
+                <Issues issueState='OPEN' selectedRepository={props.selectedRepository} />
             </TabPanel>
             <TabPanel value={value} index={2}>
-                <Issues issueState='CLOSED' />
+                <Issues issueState='CLOSED' selectedRepository={props.selectedRepository} />
             </TabPanel>
         </div>
     );
