@@ -10,13 +10,11 @@ const App = () => {
         <BrowserRouter>
             <div>
                 <Header/>
-                <Container>
-                    <Switch>
-                        <Route path="/" exact component={NoSearch}/>
-                        <Route path="/inspect/:repository" exact component={Inspect}/>
-                        <Redirect to="/" />
-                    </Switch>
-                </Container>
+                <Switch>
+                    <Route path="/" exact component={NoSearch}/>
+                    <Route path="/inspect/:repository" exact component={Inspect}/>
+                    <Redirect to="/" />
+                </Switch>
             </div>
         </BrowserRouter>
     );

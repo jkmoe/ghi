@@ -1,12 +1,10 @@
 import React from 'react';
-import Typography from "@material-ui/core/Typography";
+import SimpleTabs from "./Tabs";
 
 export default function Inspect() {
     return (
         <div>
-            <Typography>
-                Inspecting...
-            </Typography>
+            <SimpleTabs />
         </div>
     );
 }
