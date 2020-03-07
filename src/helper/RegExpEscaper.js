@@ -1,3 +1,4 @@
+/* eslint-disable */
 class RegExpEscaper {
     static create = (str) => {
         return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");

@@ -2,12 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from "./components/App";
 import { createClient, Provider } from "urql";
+import { getToken } from "./token";
 
 const client = createClient({
     url: "https://api.github.com/graphql",
     fetchOptions: () => {
+        const token = getToken();
         return {
-            headers: { authorization: `Bearer ` } // TODO: Find a solution for making the bearer configurable more comfortable
+            headers: { authorization: token ? `Bearer ${token}` : '' }
         }
     }
 });
