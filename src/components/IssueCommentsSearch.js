@@ -5,7 +5,7 @@ import InputBase from '@material-ui/core/InputBase';
 import IconButton from "@material-ui/core/IconButton";
 import ClearIcon from '@material-ui/icons/Clear';
 import IssueComments from "./IssueComments";
-import RegExpEscaper from "../RegExpEscaper";
+import RegExpEscaper from "../helper/RegExpEscaper";
 
 const useStyles = makeStyles(theme => ({
     searchRoot: {

@@ -6,8 +6,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import DateFormatter from "../DateFormatter";
-import HtmlSanitizer from "../HtmlSanitizer";
+import DateFormatter from "../helper/DateFormatter";
+import HtmlSanitizer from "../helper/HtmlSanitizer";
 
 const useStyles = makeStyles(theme => ({
     commentsRoot: {

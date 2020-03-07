@@ -6,9 +6,9 @@ import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
-import DateFormatter from "../DateFormatter";
+import DateFormatter from "../helper/DateFormatter";
 import Link from "@material-ui/core/Link";
-import HtmlSanitizer from "../HtmlSanitizer";
+import HtmlSanitizer from "../helper/HtmlSanitizer";
 
 const useStyles = makeStyles(theme => ({
     media: {
