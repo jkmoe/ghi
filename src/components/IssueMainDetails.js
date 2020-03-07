@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import DateFormatter from "../DateFormatter";
 import Link from "@material-ui/core/Link";
+import HtmlSanitizer from "../HtmlSanitizer";
 
 const useStyles = makeStyles(theme => ({
     media: {
@@ -50,7 +51,7 @@ export default function IssueMainDetails(props) {
                 </Typography>
             </CardContent>
             <CardContent>
-                <Typography>{issue.bodyText}</Typography>
+                <div dangerouslySetInnerHTML={HtmlSanitizer.createMarkup(issue.bodyHTML)} />
                 <Link href={issue.url} target="_blank">
                     <Typography>View on GitHub</Typography>
                 </Link>

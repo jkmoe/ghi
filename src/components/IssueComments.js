@@ -1,7 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import InputBase from '@material-ui/core/InputBase';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -9,19 +7,11 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import DateFormatter from "../DateFormatter";
+import HtmlSanitizer from "../HtmlSanitizer";
 
 const useStyles = makeStyles(theme => ({
-    searchRoot: {
-        padding: '2px 4px',
-        display: 'flex',
-        alignItems: 'center',
-    },
-    input: {
-        flex: 1,
-    },
     commentsRoot: {
         width: '100%',
-        maxWidth: 360,
         backgroundColor: theme.palette.background.paper,
     },
     inline: {
@@ -29,28 +19,20 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function IssueComments(props) {
-    const comments = props.issue.comments.nodes;
+export default function IssueCommentsSearch(props) {
+    const { comments } = props;
     const classes = useStyles();
 
     return (
         <>
-            <Paper component="form" className={classes.searchRoot}>
-                <InputBase
-                    className={classes.input}
-                    placeholder="Search in Comments"
-                    inputProps={{ 'aria-label': 'search in comments' }}
-                />
-            </Paper>
-            <List className={classes.root}>
-                {comments.map((comment, currentIndex) => (
-                    <>
+            <List className={classes.commentsRoot}>
+                {comments.map((comment) => (
+                    <div key={comment.id} data-comment-id={comment.id}>
                         <ListItem alignItems="flex-start">
                             <ListItemAvatar>
                                 <Avatar alt={comment.author.login} src="/static/images/avatar/1.jpg" />
                             </ListItemAvatar>
                             <ListItemText
-                                primary={comment.title}
                                 secondary={
                                     <React.Fragment>
                                         <Typography
@@ -61,12 +43,12 @@ export default function IssueComments(props) {
                                         >
                                             {"[" + DateFormatter.getDate(comment.publishedAt) + "] " + comment.author.login}
                                         </Typography>
-                                        {" — " + comment.bodyText}
+                                        <span dangerouslySetInnerHTML={HtmlSanitizer.createMarkup(comment.bodyHTML)} />
                                     </React.Fragment>
                                 }
                             />
                         </ListItem>
-                    </>
+                    </div>
                 ))}
             </List>
         </>

@@ -2,7 +2,7 @@ import React from 'react';
 import IssueDateTable from "./IssueDateTable";
 import IssueMainDetails from "./IssueMainDetails";
 import {useQuery} from "urql";
-import IssueComments from "./IssueComments";
+import IssueCommentsSearch from "./IssueCommentsSearch";
 
 const getIssue = `
     query GetIssue($issueId: ID!) {
@@ -16,7 +16,7 @@ const getIssue = `
                 createdAt,
                 publishedAt,
                 lastEditedAt,
-                bodyText,
+                bodyHTML,
                 comments(last:10) {
                     nodes {
                         author {
@@ -27,6 +27,7 @@ const getIssue = `
                         lastEditedAt,
                         id,
                         url,
+                        bodyHTML,
                         bodyText
                     }
                 },
@@ -54,7 +55,7 @@ export default function Issue(props) {
         <>
             <IssueDateTable issue={fetchedIssue} />
             <IssueMainDetails issue={fetchedIssue} />
-            <IssueComments issue={fetchedIssue} />
+            <IssueCommentsSearch issue={fetchedIssue} />
         </>
     );
 }
