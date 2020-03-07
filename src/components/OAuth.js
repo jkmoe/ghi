@@ -36,7 +36,7 @@ export default function OAuth() {
             <Modal
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description"
-                open="true"
+                open={true}
             >
                 <div className={classes.paper}>
                     <h3 id="simple-modal-title">GitHub OAuth Token</h3>
