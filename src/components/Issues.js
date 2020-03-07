@@ -3,6 +3,8 @@ import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemLink from "./ListItemLink";
 import {useQuery} from "urql";
+import ResultStateHandler from "../helper/ResultStateHandler";
+import Box from "@material-ui/core/Box";
 
 const getIssues = `
         query GetIssues($issueState: [IssueState!], $repositoryOwner: String!, $repositoryName: String!) {
@@ -32,20 +34,29 @@ export default function Issues(props) {
         variables: {issueState, repositoryOwner, repositoryName},
     });
 
-    if (result.fetching) return 'Loading...';
-    if (result.error) return 'Something went wrong. Make sure, you have a valid bearer token.';
+    if (result.fetching || result.error) return ResultStateHandler.handle(result);
 
     const IssuesEdges = result.data.repository.issues.edges;
 
+    if (IssuesEdges.length) return (
+        <div>
+            <Box p={3}>
+                <List component="nav" aria-label="secondary mailbox folders">
+                    {IssuesEdges.map(({ node }) => (
+                        <ListItemLink key={node.id} href={ '/issue/' + encodeURIComponent(node.id) }>
+                            <ListItemText primary={ node.title } />
+                        </ListItemLink>
+                    ))}
+                </List>
+            </Box>
+        </div>
+    );
+
     return (
         <div>
-            <List component="nav" aria-label="secondary mailbox folders">
-                {IssuesEdges.map(({ node }) => (
-                    <ListItemLink key={node.id} href={ '/issue/' + encodeURIComponent(node.id) }>
-                        <ListItemText primary={ node.title } />
-                    </ListItemLink>
-                ))}
-            </List>
+            <Box p={3}>
+                No results.
+            </Box>
         </div>
     );
 }

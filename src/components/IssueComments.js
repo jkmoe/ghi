@@ -8,6 +8,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import DateFormatter from "../helper/DateFormatter";
 import HtmlSanitizer from "../helper/HtmlSanitizer";
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles(theme => ({
     commentsRoot: {
@@ -17,13 +18,17 @@ const useStyles = makeStyles(theme => ({
     inline: {
         display: 'inline',
     },
+    box: {
+        backgroundColor: theme.palette.background.paper,
+        marginBottom: 100
+    },
 }));
 
 export default function IssueCommentsSearch(props) {
     const { comments } = props;
     const classes = useStyles();
 
-    return (
+    if (comments.length) return (
         <>
             <List className={classes.commentsRoot}>
                 {comments.map((comment) => (
@@ -33,6 +38,7 @@ export default function IssueCommentsSearch(props) {
                                 <Avatar alt={comment.author.login} src="/static/images/avatar/1.jpg" />
                             </ListItemAvatar>
                             <ListItemText
+                                primary={DateFormatter.getDate(comment.publishedAt)}
                                 secondary={
                                     <React.Fragment>
                                         <Typography
@@ -41,7 +47,7 @@ export default function IssueCommentsSearch(props) {
                                             className={classes.inline}
                                             color="textPrimary"
                                         >
-                                            {"[" + DateFormatter.getDate(comment.publishedAt) + "] " + comment.author.login}
+                                            {"Author: " + comment.author.login}
                                         </Typography>
                                         <span dangerouslySetInnerHTML={HtmlSanitizer.createMarkup(comment.bodyHTML)} />
                                     </React.Fragment>
@@ -52,5 +58,13 @@ export default function IssueCommentsSearch(props) {
                 ))}
             </List>
         </>
+    );
+
+    return (
+        <div>
+            <Box p={1} className={classes.box}>
+                No results.
+            </Box>
+        </div>
     );
 }

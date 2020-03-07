@@ -3,6 +3,7 @@ import IssueDateTable from "./IssueDateTable";
 import IssueMainDetails from "./IssueMainDetails";
 import {useQuery} from "urql";
 import IssueCommentsSearch from "./IssueCommentsSearch";
+import ResultStateHandler from "../helper/ResultStateHandler";
 
 const getIssue = `
     query GetIssue($issueId: ID!) {
@@ -46,8 +47,7 @@ export default function Issue(props) {
         variables: {issueId},
     });
 
-    if (result.fetching) return 'Loading...';
-    if (result.error) return 'Something went wrong. Make sure, you have a valid bearer token.';
+    if (result.fetching || result.error) return ResultStateHandler.handle(result);
 
     const fetchedIssue = result.data.node;
 

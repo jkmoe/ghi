@@ -30,9 +30,6 @@ const styles = theme => ({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    inputRoot: {
-        color: 'inherit',
-    },
     inputInput: {
         padding: theme.spacing(1, 1, 1, 7),
         transition: theme.transitions.create('width'),
@@ -40,6 +37,12 @@ const styles = theme => ({
         [theme.breakpoints.up('md')]: {
             width: 200,
         },
+    },
+    button: {
+        boxShadow: 'none',
+        '&:hover': {
+            boxShadow: 'none',
+        }
     },
 });
 
@@ -97,6 +100,7 @@ class RepositorySearch extends React.Component {
                 <Button
                     variant="contained"
                     color="secondary"
+                    className={classes.button}
                     onClick={() => this.onRepositorySearch()}
                 >
                     Search

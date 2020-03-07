@@ -5,11 +5,13 @@ import NoSearch from "./NoSearch";
 import Repository from "./Repository";
 import history from "../history";
 import Issue from "./Issue";
+import { ThemeProvider } from '@material-ui/core/styles';
+import theme from "../theme";
 
 const App = () => {
     return (
         <Router history={history}>
-            <div>
+            <ThemeProvider theme={theme}>
                 <Header/>
                 <Switch>
                     <Route path="/" exact component={NoSearch}/>
@@ -17,7 +19,7 @@ const App = () => {
                     <Route path="/issue/:id" exact component={Issue}/>
                     <Redirect to="/" />
                 </Switch>
-            </div>
+            </ThemeProvider>
         </Router>
     );
 };

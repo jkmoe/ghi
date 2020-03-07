@@ -21,7 +21,7 @@ function TabPanel(props) {
             aria-labelledby={`simple-tab-${index}`}
             {...other}
         >
-            {value === index && <Box p={3}>{children}</Box>}
+            {value === index && <Box p={0}>{children}</Box>}
         </Typography>
     );
 }
@@ -44,9 +44,12 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1,
         backgroundColor: theme.palette.background.paper,
     },
+    bar: {
+        boxShadow: 'none',
+    }
 }));
 
-export default function SimpleTabs(props) {
+export default function TabbedContent(props) {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
 
@@ -56,7 +59,7 @@ export default function SimpleTabs(props) {
 
     return (
         <div className={classes.root}>
-            <AppBar position="static">
+            <AppBar className={classes.bar} position="static">
                 <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
                     <Tab label="Pull Requests" {...a11yProps(0)} />
                     <Tab label="Open Issues" {...a11yProps(1)} />

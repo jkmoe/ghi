@@ -11,6 +11,16 @@ import Link from "@material-ui/core/Link";
 import HtmlSanitizer from "../helper/HtmlSanitizer";
 
 const useStyles = makeStyles(theme => ({
+    root: {
+        boxShadow: 'none',
+        borderRadius: 0,
+    },
+    verticalPaddingOff: {
+        padding: '0 16px',
+    },
+    body: {
+        padding: '0 16px 0 34px',
+    },
     media: {
         height: 0,
         paddingTop: '56.25%', // 16:9
@@ -35,7 +45,7 @@ export default function IssueMainDetails(props) {
     const classes = useStyles();
 
     return (
-        <Card>
+        <Card className={classes.root}>
             <CardHeader
                 avatar={
                     <Avatar aria-label="recipe" className={classes.avatar}>
@@ -45,17 +55,17 @@ export default function IssueMainDetails(props) {
                 title={issue.title}
                 subheader={DateFormatter.getDate(issue.publishedAt)}
             />
-            <CardContent>
+            <CardContent className={classes.verticalPaddingOff}>
                 <Typography variant="body2" color="textSecondary" component="p">
                     Author: {issue.author.login}
                 </Typography>
             </CardContent>
-            <CardContent>
+            <CardContent className={classes.body}>
                 <div dangerouslySetInnerHTML={HtmlSanitizer.createMarkup(issue.bodyHTML)} />
-                <Link href={issue.url} target="_blank">
-                    <Typography>View on GitHub</Typography>
-                </Link>
             </CardContent>
+            <Link href={issue.url} target="_blank">
+                <Typography className={classes.verticalPaddingOff}>View on GitHub</Typography>
+            </Link>
         </Card>
     );
 }

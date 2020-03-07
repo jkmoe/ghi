@@ -3,6 +3,8 @@ import List from '@material-ui/core/List';
 import ListItemLink from "./ListItemLink";
 import ListItemText from '@material-ui/core/ListItemText';
 import { useQuery } from 'urql';
+import ResultStateHandler from "../helper/ResultStateHandler";
+import Box from "@material-ui/core/Box";
 
 const getPullRequests = `
         query getPullRequests($repositoryOwner: String!, $repositoryName: String!) {
@@ -35,20 +37,29 @@ export default function PullRequests(props) {
         variables: {repositoryOwner, repositoryName},
     });
 
-    if (result.fetching) return 'Loading...';
-    if (result.error) return 'Something went wrong. Make sure, you have a valid bearer token.';
+    if (result.fetching || result.error) return ResultStateHandler.handle(result);
 
     const pullRequestEdges = result.data.repository.pullRequests.edges;
 
+    if (pullRequestEdges.length) return (
+        <div>
+            <Box p={3}>
+                <List component="nav" aria-label="secondary mailbox folders">
+                        {pullRequestEdges.map(({ node }) => (
+                            <ListItemLink key={node.id} href={ node.url } target="_blank">
+                                <ListItemText primary={ node.title }/>
+                            </ListItemLink>
+                        ))}
+                </List>
+            </Box>
+        </div>
+    );
+
     return (
         <div>
-            <List component="nav" aria-label="secondary mailbox folders">
-                    {pullRequestEdges.map(({ node }) => (
-                        <ListItemLink key={node.id} href={ node.url } target="_blank">
-                            <ListItemText primary={ node.title }/>
-                        </ListItemLink>
-                    ))}
-            </List>
+            <Box p={3}>
+                No results.
+            </Box>
         </div>
     );
 };

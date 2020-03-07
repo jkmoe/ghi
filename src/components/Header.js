@@ -6,10 +6,14 @@ import RepositorySearch from "./RepositorySearch";
 import OAuth from "./OAuth";
 import { getToken } from "../token";
 import ClearTokenButton from "./ClearTokenButton";
+import Link from "@material-ui/core/Link";
 
 const useStyles = makeStyles(theme => ({
     grow: {
         flexGrow: 1,
+    },
+    bar: {
+        boxShadow: 'none',
     },
 }));
 
@@ -22,9 +26,12 @@ export default function Header() {
 
     return (
         <div className={classes.grow}>
-            <AppBar position="static">
+            <AppBar className={classes.bar} position="static">
                 {tokenCheck()}
                 <Toolbar>
+                    <Link href='/'>
+                        <img width="80" src="/logo-nav.png" alt="Home"/>
+                    </Link>
                     <RepositorySearch />
                     <div className={classes.grow} />
                     <ClearTokenButton />

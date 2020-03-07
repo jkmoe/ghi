@@ -9,12 +9,16 @@ import RegExpEscaper from "../helper/RegExpEscaper";
 
 const useStyles = makeStyles(theme => ({
     searchRoot: {
+        margin: theme.spacing(1),
         padding: '2px 4px',
         display: 'flex',
         alignItems: 'center',
+        boxShadow: 'none',
+        borderRadius: 0,
     },
     input: {
         flex: 1,
+        paddingLeft: 10,
     },
     iconButton: {
         padding: 10,
@@ -42,12 +46,13 @@ export default function IssueCommentsSearch(props) {
     const clearSearch = () => {
         setSearchTerm('');
         setFilteredComments(comments);
+        window.location.href = "#commentsSearchField";
     };
 
     if (!comments.length) return <></>;
     return (
         <>
-            <Paper className={classes.searchRoot}>
+            <Paper id='commentsSearchField' className={classes.searchRoot}>
                 <InputBase
                     className={classes.input}
                     placeholder="Search in Comments"
