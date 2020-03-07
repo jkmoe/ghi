@@ -44,6 +44,7 @@ export default function IssueCommentsSearch(props) {
         setFilteredComments(comments);
     };
 
+    if (!comments.length) return <></>;
     return (
         <>
             <Paper className={classes.searchRoot}>
