@@ -1,10 +1,11 @@
 import React from 'react';
 import List from '@material-ui/core/List';
-import ListItemLink from "./ListItemLink";
+import ListItemLink from "../layout/ListItemLink";
 import ListItemText from '@material-ui/core/ListItemText';
 import { useQuery } from 'urql';
-import ResultStateHandler from "../helper/ResultStateHandler";
+import ResultStateHandler from "../../helper/ResultStateHandler";
 import Box from "@material-ui/core/Box";
+import DateFormatter from "../../helper/DateFormatter";
 
 const getPullRequests = `
         query getPullRequests($repositoryOwner: String!, $repositoryName: String!) {
@@ -18,10 +19,7 @@ const getPullRequests = `
                   },
                   title,
                   changedFiles,
-                  createdAt,
-                  updatedAt,
-                  closed,
-                  closedAt,
+                  publishedAt,
                   url
                 }
               }
@@ -39,7 +37,7 @@ export default function PullRequests(props) {
 
     if (result.fetching || result.error) return ResultStateHandler.handle(result);
 
-    const pullRequestEdges = result.data.repository.pullRequests.edges;
+    const pullRequestEdges = result.data.repository.pullRequests.edges.reverse();
 
     if (pullRequestEdges.length) return (
         <div>
@@ -47,7 +45,7 @@ export default function PullRequests(props) {
                 <List component="nav" aria-label="secondary mailbox folders">
                         {pullRequestEdges.map(({ node }) => (
                             <ListItemLink key={node.id} href={ node.url } target="_blank">
-                                <ListItemText primary={ node.title }/>
+                                <ListItemText primary={ node.title } secondary={ node.changedFiles + ' changed file(s) by ' + node.author.login + ' on ' + DateFormatter.getDate(node.publishedAt) } />
                             </ListItemLink>
                         ))}
                 </List>

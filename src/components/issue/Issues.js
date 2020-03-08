@@ -1,10 +1,11 @@
 import React from 'react';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListItemLink from "./ListItemLink";
+import ListItemLink from "../layout/ListItemLink";
 import {useQuery} from "urql";
-import ResultStateHandler from "../helper/ResultStateHandler";
+import ResultStateHandler from "../../helper/ResultStateHandler";
 import Box from "@material-ui/core/Box";
+import DateFormatter from "../../helper/DateFormatter";
 
 const getIssues = `
         query GetIssues($issueState: [IssueState!], $repositoryOwner: String!, $repositoryName: String!) {
@@ -36,7 +37,7 @@ export default function Issues(props) {
 
     if (result.fetching || result.error) return ResultStateHandler.handle(result);
 
-    const IssuesEdges = result.data.repository.issues.edges;
+    const IssuesEdges = result.data.repository.issues.edges.reverse();
 
     if (IssuesEdges.length) return (
         <div>
@@ -44,7 +45,7 @@ export default function Issues(props) {
                 <List component="nav" aria-label="secondary mailbox folders">
                     {IssuesEdges.map(({ node }) => (
                         <ListItemLink key={node.id} href={ '/issue/' + encodeURIComponent(node.id) }>
-                            <ListItemText primary={ node.title } />
+                            <ListItemText primary={ node.title } secondary={ 'Submitted by ' + node.author.login + ' on ' + DateFormatter.getDate(node.publishedAt) } />
                         </ListItemLink>
                     ))}
                 </List>

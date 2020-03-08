@@ -1,6 +1,6 @@
 import React from 'react';
 import TabbedContent from "./TabbedContent";
-import RepositoryNameDecoder from "../helper/RepositoryNameDecoder";
+import RepositoryNameDecoder from "../../helper/RepositoryNameDecoder";
 
 export default function Repository(props) {
     return (

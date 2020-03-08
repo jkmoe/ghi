@@ -1,7 +1,7 @@
 import React from 'react';
 import IconButton from "@material-ui/core/IconButton";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import { deleteToken } from "../token";
+import { deleteToken } from "../../token";
 
 export default function ClearTokenButton() {
     const clear = () => {

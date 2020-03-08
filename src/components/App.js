@@ -1,10 +1,10 @@
 import React from 'react';
-import Header from "./Header";
+import Header from "./layout/Header";
 import { Router, Route, Switch, Redirect } from 'react-router-dom';
-import NoSearch from "./NoSearch";
-import Repository from "./Repository";
+import Home from "./Home";
+import Repository from "./repository/Repository";
 import history from "../history";
-import Issue from "./Issue";
+import Issue from "./issue/Issue";
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from "../theme";
 
@@ -14,7 +14,7 @@ const App = () => {
             <ThemeProvider theme={theme}>
                 <Header/>
                 <Switch>
-                    <Route path="/" exact component={NoSearch}/>
+                    <Route path="/" exact component={Home}/>
                     <Route path="/repository/:repository" exact component={Repository}/>
                     <Route path="/issue/:id" exact component={Issue}/>
                     <Redirect to="/" />

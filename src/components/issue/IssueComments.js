@@ -6,8 +6,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import DateFormatter from "../helper/DateFormatter";
-import HtmlSanitizer from "../helper/HtmlSanitizer";
+import DateFormatter from "../../helper/DateFormatter";
+import HtmlSanitizer from "../../helper/HtmlSanitizer";
 import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles(theme => ({
@@ -38,7 +38,7 @@ export default function IssueCommentsSearch(props) {
                                 <Avatar alt={comment.author.login} src="/static/images/avatar/1.jpg" />
                             </ListItemAvatar>
                             <ListItemText
-                                primary={DateFormatter.getDate(comment.publishedAt)}
+                                primary={DateFormatter.getDateAndTime(comment.publishedAt)}
                                 secondary={
                                     <React.Fragment>
                                         <Typography

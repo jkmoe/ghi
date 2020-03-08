@@ -6,8 +6,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import PullRequests from "./PullRequests";
-import Issues from "./Issues";
+import PullRequests from "../pull_request/PullRequests";
+import Issues from "../issue/Issues";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;

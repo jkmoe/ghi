@@ -3,7 +3,7 @@ import IssueDateTable from "./IssueDateTable";
 import IssueMainDetails from "./IssueMainDetails";
 import {useQuery} from "urql";
 import IssueCommentsSearch from "./IssueCommentsSearch";
-import ResultStateHandler from "../helper/ResultStateHandler";
+import ResultStateHandler from "../../helper/ResultStateHandler";
 
 const getIssue = `
     query GetIssue($issueId: ID!) {
