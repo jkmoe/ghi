@@ -4,6 +4,7 @@ import InputBase from '@material-ui/core/InputBase';
 import Button from '@material-ui/core/Button';
 import { withStyles, fade } from "@material-ui/core/styles";
 import { withRouter } from 'react-router-dom';
+import CustomizedSnackbars from "./InvalidSearchInfo";
 
 const styles = theme => ({
     search: {
@@ -48,7 +49,8 @@ const styles = theme => ({
 
 class RepositorySearch extends React.Component {
     state = {
-        repositoryName: ''
+        repositoryName: '',
+        invalidSearch: false,
     };
 
     encodeRepositoryName = () => {
@@ -69,7 +71,8 @@ class RepositorySearch extends React.Component {
         if (this.isValidRepositoryName()) {
             this.props.history.push('/repository/' + this.encodeRepositoryName())
         } else {
-            // TODO: Inform the user
+            this.setState({invalidSearch: true});
+            setTimeout(() => {this.setState({invalidSearch: false})}, 5000);
         }
     };
 
@@ -105,6 +108,7 @@ class RepositorySearch extends React.Component {
                 >
                     Search
                 </Button>
+                <CustomizedSnackbars open={this.state.invalidSearch}/>
             </>
         )
     }
