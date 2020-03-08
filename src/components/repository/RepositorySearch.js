@@ -4,7 +4,7 @@ import InputBase from '@material-ui/core/InputBase';
 import Button from '@material-ui/core/Button';
 import { withStyles, fade } from "@material-ui/core/styles";
 import { withRouter } from 'react-router-dom';
-import CustomizedSnackbars from "./InvalidSearchInfo";
+import InvalidSearchInfo from "./InvalidSearchInfo";
 
 const styles = theme => ({
     search: {
@@ -108,7 +108,7 @@ class RepositorySearch extends React.Component {
                 >
                     Search
                 </Button>
-                <CustomizedSnackbars open={this.state.invalidSearch}/>
+                <InvalidSearchInfo open={this.state.invalidSearch}/>
             </>
         )
     }

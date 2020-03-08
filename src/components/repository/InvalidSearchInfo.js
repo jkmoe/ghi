@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function CustomizedSnackbars(props) {
+export default function InvalidSearchInfo(props) {
     const classes = useStyles();
     const open = props.open;
 
