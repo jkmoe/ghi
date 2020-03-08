@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from "./components/App";
 import { createClient, Provider } from "urql";
 import { getToken } from "./token";
+import './app.css';
 
 const client = createClient({
     url: "https://api.github.com/graphql",
